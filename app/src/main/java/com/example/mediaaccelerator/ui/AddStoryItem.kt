@@ -23,13 +23,13 @@ import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.constraintlayout.compose.MotionScene
 import com.example.mediaaccelerator.R
+import com.example.mediaaccelerator.states.StoryContentState
 import com.example.mediaaccelerator.states.StoryControlState
 
 @ExperimentalMotionApi
 @Composable
 fun HeadStoryItem(
-    state: StoryControlState,
-    onContentChange: () -> Unit
+    onContentChange: (StoryContentState) -> Unit
 ) {
     val context = LocalContext.current
     val motionScene = remember {
@@ -48,7 +48,7 @@ fun HeadStoryItem(
 
     Card(
         modifier = Modifier.size(height = (cardHeight).dp, width = (cardWidth).dp).clickable {
-           onContentChange()
+           onContentChange(StoryContentState.OnClickAddNewStory)
         },
         shape = RoundedCornerShape((cardCornerShape).dp),
         backgroundColor = cardColor,
