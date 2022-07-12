@@ -20,6 +20,7 @@ import com.example.mediaaccelerator.R
 import com.example.mediaaccelerator.StoryModel
 import com.example.mediaaccelerator.states.StoryContentState
 import com.example.mediaaccelerator.ui.HeadStoryItem
+import com.example.mediaaccelerator.ui.VideoPlayer
 import com.example.myapplication.ui.home.HomeViewModel
 import io.ak1.pix.helpers.PixBus
 import io.ak1.pix.helpers.PixEventCallback
@@ -87,7 +88,7 @@ class HomeFragment : Fragment() {
 
         var bundle = bundleOf(ARG_PARAM_PIX to options)
         findNavController().navigate(R.id.CameraFragment, bundle)
-        PixBus.results {
+        PixBus.results { it ->
             when (it.status) {
                 PixEventCallback.Status.SUCCESS -> {
                     val list = arrayListOf<StoryModel>()
@@ -95,11 +96,10 @@ class HomeFragment : Fragment() {
                         list.add(
                             StoryModel(
                                 path = getRealPathFromURI(it),
-                                isVideo = it.path?.contains("mp.4") == true
+                                isVideo = getRealPathFromURI(it)?.contains("mp.4") ?:  false
                             )
                         )
                     }
-
                     val bundle = Bundle()
                     bundle.putSerializable("data", list)
                     requireActivity().findNavController(R.id.nav_host_fragment_activity_main)

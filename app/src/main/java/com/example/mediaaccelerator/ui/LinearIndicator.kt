@@ -56,7 +56,7 @@ fun LinearIndicator(modifier: Modifier,
             backgroundColor = indicatorBackgroundColor,
             color = indicatorProgressColor,
             modifier = modifier
-                .padding(top = 12.dp, bottom = 12.dp)
+                .padding(top = 40.dp, bottom = 12.dp)
                 .clip(RoundedCornerShape(12.dp)),
             progress = animatedProgress
         )

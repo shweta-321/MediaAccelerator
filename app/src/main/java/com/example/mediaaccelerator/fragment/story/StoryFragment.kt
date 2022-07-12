@@ -1,5 +1,6 @@
 package com.example.mediaaccelerator.fragment.story
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.example.mediaaccelerator.R
 import com.example.mediaaccelerator.StoryModel
 import com.example.mediaaccelerator.states.StoryContentState
 import com.example.mediaaccelerator.ui.Stories
+import com.example.mediaaccelerator.ui.VideoPlayer
 import com.example.myapplication.ui.home.HomeViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -44,8 +46,17 @@ class StoryFragment : Fragment() {
                     onComplete = {
                         Log.i("Action", "Completed")
                     }) { index ->
-                    Image(painter = rememberImagePainter(File(listOfImages[index].path)), contentDescription = null,
-                        contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
+                    when (listOfImages[index].isVideo) {
+                        true -> VideoPlayer(uri = Uri.parse(listOfImages[index].path), touchToPause = false)
+
+                        else -> Image(
+                            painter = rememberImagePainter(File(listOfImages[index].path)),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+
                 }
             }
         }

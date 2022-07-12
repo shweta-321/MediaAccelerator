@@ -14,15 +14,18 @@ import com.google.accompanist.pager.PagerState
 @Composable
 fun StoryImage(pagerState: PagerState, onTap: (Boolean) -> Unit, content: @Composable (Int) -> Unit) {
     HorizontalPager(state = pagerState, dragEnabled = false, modifier = Modifier.pointerInteropFilter {
-        when(it.action) {
+      val touchToPause =  when(it.action) {
             MotionEvent.ACTION_DOWN -> {
                 onTap(true)
+                true
             }
 
             MotionEvent.ACTION_UP -> {
                 onTap(false)
+                false
             }
-        }
+          else -> Unit
+      }
         true
     }) {
         content(it)

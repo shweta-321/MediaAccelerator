@@ -6,9 +6,4 @@ import com.example.mediaaccelerator.states.StoryContentState
 import com.example.mediaaccelerator.states.StoryControlState
 import kotlinx.coroutines.flow.*
 
-class MainVeiwModel () : ViewModel() {
-
-
-
-
-}
+class MainVeiwModel ()  : ViewModel()
