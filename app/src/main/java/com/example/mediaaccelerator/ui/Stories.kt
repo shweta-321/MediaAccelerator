@@ -71,13 +71,13 @@ fun Stories(list: ArrayList<StoryModel>) {
                 )
             }
         when (item.value[currentStep.value].isVideo) {
-            true -> VideoPlayer(uri = Uri.parse(item.value[currentStep.value].path), touchToPause = false)
+            true -> VideoPlayer(uri = Uri.parse(item.value[currentStep.value].path), touchToPause = isPaused.value)
 
             else -> Image(
                 painter = rememberImagePainter(File(item.value[currentStep.value].path)),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = imageModifier.fillMaxSize()
             )
         }
         InstagramProgressIndicator(
