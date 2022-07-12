@@ -1,5 +1,6 @@
 package com.example.mediaaccelerator.fragment.home
 
+import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -17,10 +18,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.mediaaccelerator.R
+import com.example.mediaaccelerator.RealPathUtil
 import com.example.mediaaccelerator.StoryModel
 import com.example.mediaaccelerator.states.StoryContentState
 import com.example.mediaaccelerator.ui.HeadStoryItem
-import com.example.mediaaccelerator.ui.VideoPlayer
 import com.example.myapplication.ui.home.HomeViewModel
 import io.ak1.pix.helpers.PixBus
 import io.ak1.pix.helpers.PixEventCallback
@@ -70,19 +71,13 @@ class HomeFragment : Fragment() {
     private fun OnClickAddNewStory() {
         val options = Options().apply {
             ratio = Ratio.RATIO_AUTO                                    //Image/video capture ratio
-            count =
-                5                                                   //Number of images to restrict selection count
+            count = 5                                                   //Number of images to restrict selection count
             spanCount = 4                                               //Number for columns in grid
-            path =
-                "Pix/Camera"                                         //Custom Path For media Storage
-            isFrontFacing =
-                false                                       //Front Facing camera on start
-            videoOptions.videoDurationLimitInSeconds =
-                10                            //Duration for video recording
-            mode =
-                Mode.All                                             //Option to select only pictures or videos or both
-            flash =
-                Flash.Auto                                          //Option to select flash type
+            path = "Pix/Camera"                                         //Custom Path For media Storage
+            isFrontFacing = false                                       //Front Facing camera on start
+            videoOptions.videoDurationLimitInSeconds = 10               //Duration for video recording
+            mode = Mode.All                                             //Option to select only pictures or videos or both
+            flash = Flash.Auto                                          //Option to select flash type
             preSelectedUrls = ArrayList<Uri>()                          //Pre selected Image Urls
         }
 
@@ -95,8 +90,8 @@ class HomeFragment : Fragment() {
                     it.data.map {
                         list.add(
                             StoryModel(
-                                path = getRealPathFromURI(it),
-                                isVideo = getRealPathFromURI(it)?.contains("mp.4") ?:  false
+                                path = RealPathUtil.getRealPath(requireActivity(),it),
+                                isVideo = RealPathUtil.getRealPath(requireActivity(),it)?.contains("mp4") ?:  false
                             )
                         )
                     }

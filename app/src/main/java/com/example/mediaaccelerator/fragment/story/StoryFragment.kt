@@ -38,26 +38,7 @@ class StoryFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 val listOfImages = arguments?.getSerializable("data") as ArrayList<StoryModel>
-
-                Stories(numberOfPages = listOfImages.size,
-                    onEveryStoryChange = { position ->
-                        Log.i("DATA", "Story Change $position")
-                    },
-                    onComplete = {
-                        Log.i("Action", "Completed")
-                    }) { index ->
-                    when (listOfImages[index].isVideo) {
-                        true -> VideoPlayer(uri = Uri.parse(listOfImages[index].path), touchToPause = false)
-
-                        else -> Image(
-                            painter = rememberImagePainter(File(listOfImages[index].path)),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
-
-                }
+                Stories(list = listOfImages)
             }
         }
     }
