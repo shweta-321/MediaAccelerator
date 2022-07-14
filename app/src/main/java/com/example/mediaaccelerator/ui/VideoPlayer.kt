@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.C
@@ -22,7 +23,8 @@ import androidx.media3.ui.PlayerView
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 fun VideoPlayer(
     uri: Uri,
-    touchToPause : Boolean
+    touchToPause : Boolean,
+    modifier: Modifier
 ) {
     val context = LocalContext.current
 

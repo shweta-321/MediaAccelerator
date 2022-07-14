@@ -71,13 +71,15 @@ fun Stories(list: ArrayList<StoryModel>) {
                 )
             }
         when (item.value[currentStep.value].isVideo) {
-            true -> VideoPlayer(uri = Uri.parse(item.value[currentStep.value].path), touchToPause = isPaused.value)
+            true -> VideoPlayer(uri = Uri.parse(item.value[currentStep.value].path),
+                touchToPause = isPaused.value,
+                modifier = imageModifier)
 
             else -> Image(
                 painter = rememberImagePainter(File(item.value[currentStep.value].path)),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = imageModifier.fillMaxSize()
+                modifier = imageModifier
             )
         }
         InstagramProgressIndicator(
@@ -85,7 +87,11 @@ fun Stories(list: ArrayList<StoryModel>) {
                 .fillMaxWidth()
                 .padding(top = 50.dp),
             stepCount = stepCount,
-            stepDuration = 2_000,
+            stepDuration =
+            when (item.value[currentStep.value].isVideo) {
+                true -> 20_000
+                else -> 3_000
+            },
             unSelectedColor = Color.LightGray,
             selectedColor = Color.White,
             currentStep = currentStep.value,
