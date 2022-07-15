@@ -59,7 +59,8 @@ fun VideoPlayer(
                 player = exoPlayer
                 layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
             }
-        })
+        }, modifier = modifier
+        )
     ) {
         onDispose { exoPlayer.release() }
     }

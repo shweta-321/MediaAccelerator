@@ -91,7 +91,9 @@ class HomeFragment : Fragment() {
                         list.add(
                             StoryModel(
                                 path = RealPathUtil.getRealPath(requireActivity(),it),
-                                isVideo = RealPathUtil.getRealPath(requireActivity(),it)?.contains("mp4") ?:  false
+                                isVideo = RealPathUtil.getRealPath(requireActivity(),it)?.contains("mp4") ?:  false,
+                                duration = RealPathUtil.getRealPath(requireActivity(),it)
+                                    ?.let { it1 -> viewModel.getDuration(it1) } ?: 20_000
                             )
                         )
                     }

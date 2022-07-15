@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.home
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.example.mediaaccelerator.states.StoryContentState
 import com.example.mediaaccelerator.states.StoryControlState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import wseemann.media.FFmpegMediaMetadataRetriever
 
 class HomeViewModel : ViewModel() {
 
@@ -24,5 +26,14 @@ class HomeViewModel : ViewModel() {
 
     fun updateData(list: List<StoryModel>){
         _uiControlState.value.copy(list = list)
+    }
+    fun getDuration(uri : String): Int {
+        val mFFmpegMediaMetadataRetriever: FFmpegMediaMetadataRetriever =
+            FFmpegMediaMetadataRetriever()
+        mFFmpegMediaMetadataRetriever.setDataSource(uri)
+        val mVideoDuration: String =
+            mFFmpegMediaMetadataRetriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_DURATION)
+        return mVideoDuration.toInt()
+        Log.e("Duration = ", mVideoDuration)
     }
 }

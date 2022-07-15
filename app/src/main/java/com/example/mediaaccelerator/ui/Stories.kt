@@ -89,7 +89,7 @@ fun Stories(list: ArrayList<StoryModel>) {
             stepCount = stepCount,
             stepDuration =
             when (item.value[currentStep.value].isVideo) {
-                true -> 20_000
+                true -> item.value[currentStep.value].duration
                 else -> 3_000
             },
             unSelectedColor = Color.LightGray,
